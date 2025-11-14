@@ -1,0 +1,14 @@
+services:
+  backoffice-web-dev:
+    container_name: backoffice-web-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5174:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    restart: always

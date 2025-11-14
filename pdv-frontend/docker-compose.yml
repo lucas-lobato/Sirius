@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  pdv-frontend:
+    build: .
+    container_name: pdv-frontend
+    ports:
+      - "8080:80"
+    restart: always

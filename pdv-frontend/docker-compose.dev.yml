@@ -1,0 +1,13 @@
+services:
+  pdv-frontend-dev:
+    container_name: pdv-frontend-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8081:8080"
+    volumes:
+      - .:/app
+    environment:
+      - FLUTTER_WEB_ENABLE_EXPRESS=true
+    restart: always
