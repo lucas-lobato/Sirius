@@ -1,22 +1,19 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize(
-  process.env.DB_DATABASE,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT || 5432,
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false, // Azure usa certificado compartilhado
-      },
-    },
-    logging: false,
-  }
-);
+// Defaults para ambiente LOCAL (PostgreSQL local)
+const DB_NAME = process.env.DB_DATABASE || 'postgres';
+const DB_USER = process.env.DB_USER || 'postgres';
+const DB_PASSWORD = process.env.DB_PASSWORD || '235711';
+const DB_HOST = process.env.DB_HOST || 'localhost';
+const DB_PORT = Number(process.env.DB_PORT) || 5432;
+
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: 'postgres',
+  // Para banco local não precisamos de SSL
+  logging: false,
+});
 
 module.exports = sequelize;

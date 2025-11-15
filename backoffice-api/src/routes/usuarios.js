@@ -12,6 +12,7 @@ const Usuario = sequelize.define(
     login: { type: DataTypes.STRING, allowNull: false, unique: true },
     senha: { type: DataTypes.STRING, allowNull: false },
     permissao: { type: DataTypes.STRING, allowNull: false },
+    cpf: { type: DataTypes.STRING, allowNull: false },
   },
   {
     tableName: 'usuarios',
@@ -58,7 +59,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (_req, res) => {
   try {
     const usuarios = await Usuario.findAll({
-      attributes: ['id', 'login', 'permissao'],
+      attributes: ['id', 'login', 'permissao', 'cpf'],
       order: [['id', 'ASC']],
     });
     res.json(usuarios);
@@ -72,7 +73,7 @@ router.get('/', async (_req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const usuario = await Usuario.findByPk(req.params.id, {
-      attributes: ['id', 'login', 'permissao'],
+      attributes: ['id', 'login', 'permissao', 'cpf'],
     });
     if (!usuario) {
       return res.status(404).json({ error: 'Usuário não encontrado.' });
